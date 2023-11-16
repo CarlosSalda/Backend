@@ -23,6 +23,7 @@ router.get('/', (req, res) => {
     if (!req.query.limit) {
 
         res.setHeader('Content-Type', 'text/html');
+
         res.status(200).render('home', { products });
 
     } else {
@@ -32,6 +33,7 @@ router.get('/', (req, res) => {
         const productsAMostrar = products.slice(0, limite);
 
         res.setHeader('Content-Type', 'text/html');
+
         res.status(200).render('home', { productsAMostrar, limite });
 
     };
@@ -39,11 +41,13 @@ router.get('/', (req, res) => {
 });
 
 router.get('/realtimeproducts', (req, res) => {
-
+    const io = req.app.get("io")
     infoProducts();
-
+    io.emit("hola")
+    
     res.setHeader('Content-Type', 'text/html');
-    res.status(200).render('realtimeproducts', { products });
+   
+    res.status(200).render('realTimeProducts', { products });
 
 
 });

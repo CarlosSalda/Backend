@@ -1,16 +1,23 @@
-const pathProducts = path.join(__dirname, '..', 'products')
+// const pathProducts = path.join(__dirname, '..', 'products')
 
-let products = [];
+// let products = [];
 
-function infoProducts() {
-    if (!fs.existsSync(pathProducts)) {
-        products = [];
-    } else {
-        products = JSON.parse(fs.readFileSync(path.join(pathProducts, 'products.json'), "utf-8"));
-    };
-};
+// function infoProducts() {
+//     if (!fs.existsSync(pathProducts)) {
+//         products = [];
+//     } else {
+//         products = JSON.parse(fs.readFileSync(path.join(pathProducts, 'products.json'), "utf-8"));
+//     };
+// };
 
 const socket = io();
+socket.on("connect", () => {
+    console.log("hola")
+})
+
+socket.on("hola", (products) => {
+    console.log("Emitido desde el back" + products)
+})
 
 /*
 // intento nro 1- importando io a products.router.js y listeners en viewRouter.js 

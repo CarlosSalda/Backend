@@ -18,7 +18,6 @@ function infoProducts() {
 const router = Router();
 
 router.get('/', (req, res) => {
-
     infoProducts();
 
     if (!req.query.limit) {
@@ -31,6 +30,7 @@ router.get('/', (req, res) => {
 
         const productsAMostrar = products.slice(0, limite);
         res.setHeader('Content-Type', 'application/json');
+       
         res.status(200).send(productsAMostrar);
 
     };

@@ -10,6 +10,7 @@ const { Server } = require('socket.io')
 
 const path = require('path');
 
+
 const routerProducts = require(path.join(__dirname, './routes', 'products.router.js'));
 
 const routerCart = require(path.join(__dirname, './routes', 'cart.router.js'));
@@ -24,11 +25,11 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, './public')))
+app.use("/public", express.static(path.join(__dirname, '/public')))
 
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
-app.set('views', path.join(__dirname, './views'))
+app.set('views', path.join(__dirname, '/views'))
 
 app.use('/api/products', routerProducts);
 
@@ -42,3 +43,12 @@ const server = app.listen(PORT, () => {
 
 const io = new Server(server);
 
+app.set("io", io)
+
+io.on("connection", (socket) => {
+    console.log(`Nuevo Cliente conectado con id ${socket.id}`);
+
+    socket.on("disconnect", () => {
+        console.log("Usuario desconectado");
+    });
+});
